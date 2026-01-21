@@ -120,7 +120,4 @@ python main.py --evaluate --evaluation-episodes-test 2000 --hierachical --locmod
 python main.py -h
 ```
 
-### License
-```
-This source code is released only for academic use. Please do not use it for commercial purposes without authorization of the author.
-```
+
