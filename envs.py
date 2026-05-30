@@ -9,6 +9,20 @@ from wrapper.vec_env import VecEnvWrapper
 from wrapper.shmem_vec_env import ShmemVecEnv
 from wrapper.dummy_vec_env import DummyVecEnv
 
+import gym
+from gym.envs.registration import register
+
+# Explicitly register the custom environment so Windows worker subprocesses can see it
+try:
+    register(
+        id='Physics-v0',
+        entry_point='environment.physics0.binPhy:PackingGame',
+    )
+    print("[WINDOWS FIX] Successfully registered Physics-v0 inside worker process.")
+except gym.error.Error:
+    # If it was already registered by the main process, skip gracefully
+    pass
+
 try:
     import dm_control2gym
 except ImportError:

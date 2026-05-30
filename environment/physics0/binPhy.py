@@ -50,6 +50,25 @@ class PackingGame(gym.Env):
 
 
         self.interface = None
+        # ==============================================================================
+        # STRUCTURE OF self.next_item_vec (Shape: [9,])
+        # ------------------------------------------------------------------------------
+        # This flat 1D array stores the properties of the SINGLE item currently sitting 
+        # at the front of the queue, waiting to be packed next.
+        #
+        # Index | Property      | Description
+        # ------|---------------|-------------------------------------------------------
+        #   0   | Category ID   | Numerical index of the object type (e.g., 0=mug, 1=box)
+        #   1   | Width (X)     | Maximum bounding box scale size along the X-axis
+        #   2   | Length (Y)    | Maximum bounding box scale size along the Y-axis
+        #   3   | Height (Z)    | Maximum bounding box scale size along the Z-axis
+        #   4   | Volume Scale  | The mesh volume / density weight value
+        #   5   | Quat X        | Default orientation quaternion X value
+        #   6   | Quat Y        | Default orientation quaternion Y value
+        #   7   | Quat Z        | Default orientation quaternion Z value
+        #   8   | Quat W        | Default orientation quaternion W value
+        # ==============================================================================
+
         self.item_vec = np.zeros((1000, 9))
         self.rangeX_A, self.rangeY_A = np.ceil(self.bin_dimension[0:2] / self.resolutionAct).astype(np.int32)
         self.space = Space(self.bin_dimension, self.resolutionAct, self.resolutionH, False,   self.ZRotNum,

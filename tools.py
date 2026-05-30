@@ -195,6 +195,13 @@ def init(module, weight_init, bias_init, gain=1):
       return module
 
 def registration_envs():
+    import gym
+    from gym.envs.registration import register
+    
+    # WINDOWS FIX: Skip registration if it was already initialized by envs.py
+    if 'Physics-v0' in gym.envs.registration.registry.env_specs:
+        print("[WINDOWS FIX] Physics-v0 already registered, skipping duplicate call safely.")
+        return
     register(
         id='Physics-v0',                                  # Format should be xxx-v0, xxx-v1
         entry_point='environment.physics0:PackingGame',   # Expalined in envs/__init__.py

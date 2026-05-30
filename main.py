@@ -32,6 +32,8 @@ def main(args):
     if args.device.type.lower() != 'cpu':
         torch.cuda.set_device(args.device)
 
+    print(args.device)
+
     torch.set_num_threads(1)
 
     torch.backends.cudnn.deterministic = True
@@ -102,6 +104,8 @@ def main(args):
         trainTool.train_q_value(envs, args)
 
 if __name__ == '__main__':
+    import multiprocessing
+    multiprocessing.freeze_support()
     registration_envs()
     args = get_args()
     main(args)
